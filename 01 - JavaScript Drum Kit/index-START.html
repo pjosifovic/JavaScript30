@@ -59,7 +59,41 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+  // CODE STARTS HERE ***********************
 
+  function playSound(e) {
+    // query html elements
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+      const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+      
+      // handle non-displayed key strokes
+      if(!audio) return; // stop the function from running all together.
+      
+      // being able to press key quickly
+      audio.currentTime = 0;
+      
+      // play the sound
+      audio.play();
+      
+      // yellow transition around the letters
+      key.classList.add('playing');
+  }
+  
+  // removing transition className from a key
+  function removeTransition(e) {
+    if (e.propertyName !== 'transform') return; // skip it if it's not a transform
+    this.classList.remove('playing');
+    
+  }
+
+  // adding transition end event
+  const keys = document.querySelectorAll('.key');
+  
+  // listen to an event (transition end) on each key
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+  
+  // run the eventListener on keydown
+  window.addEventListener('keydown', playSound);
 </script>
 
 
