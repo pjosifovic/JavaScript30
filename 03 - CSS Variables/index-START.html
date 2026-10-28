@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Scoped CSS Variables and JS</title>
   <link rel="icon" href="https://fav.farm/🔥" />
 </head>
+
 <body>
   <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
 
@@ -22,6 +24,20 @@
   <img src="https://unsplash.it/800/500?image">
 
   <style>
+    :root {
+      --base: #ffc600;
+      --spacing: 10px --blur: 10px;
+    }
+
+    img {
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+    }
+
+    .hl {
+      color: var(--base);
+    }
 
     /*
       misc styles, nothing to do with CSS variables
@@ -46,7 +62,27 @@
   </style>
 
   <script>
+    // grab all inputs from the page
+    const inputs = document.querySelectorAll('.controls input');
+
+    // def handleUpdate
+    function handleUpdate() {
+      // handle data-sizing suffix
+      const suffix = this.dataset.sizing || '';
+
+      // how to update CSS variables now?
+      console.log(this.name);
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+
+    }
+
+    // iterate and for each one addEventListener (mousemove and change) will be enough.
+    inputs.forEach(input => input.addEventListener('change', handleUpdate));
+    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+
+
   </script>
 
 </body>
+
 </html>
