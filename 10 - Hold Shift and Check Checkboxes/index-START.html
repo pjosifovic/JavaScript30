@@ -97,6 +97,71 @@
   </div>
 
 <script>
+
+// grab all checkboxes
+const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
+
+let lastChecked;
+
+// handle Click
+function handleClick(e) {
+  // set flag inBetween
+  let inBetweeen = false;
+  
+  // loop through checkboxes
+  if (e.shiftKey && this.checked) {
+    checkboxes.forEach(checkbox => {
+      console.log(checkbox);
+      if (checkbox === this || checkbox === lastChecked) {
+        inBetweeen = !inBetweeen;
+        console.log('Started checking from this item'); 
+      }
+      if (inBetweeen) {
+        checkbox.checked = true;  
+      }
+    });
+  };
+  lastChecked = this;
+}
+
+// listen to event when clicked
+checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleClick));
+
 </script>
 </body>
 </html>
+
+
+
+  <!-- // select all checkboxes
+  const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]')
+
+  let lastChecked;
+
+  // handle event
+  function handleEvent(e) {
+    // check if shift key is down 
+    // AND check that they're checking it
+
+    let inBetween = false // flag variable
+    
+    if (e.shiftKey && this.checked) {
+      // loop over every single check box
+      checkboxes.forEach(checkbox => {
+        console.log(checkbox);
+        if (checkbox === this || checkbox === lastChecked) {
+          inBetween = !inBetween;
+          console.log('Starting to check them in between!');
+        }
+        
+        if (inBetween) {
+          checkbox.checked = true;
+        }
+      });
+    }
+
+    lastChecked = this;
+  }
+
+  //event listener
+  checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleEvent)); -->
